@@ -13,10 +13,14 @@ appCSS <- ".mandatory_star { color: red; }
 
 fieldsAll <- c("method_name", "year_published", "title", "journal", "authors",
                "pubmedID", "scope", "type_of_genome_seq_data", 
-               "driver_gene_ID_strategy", "cancer_type_tested",
-               "method_account_for_cofactors", "limited_to_subset_of_genes", 
-               "subset_description", "method_compute_pvals", 
-               "supervised_learning", "enrichment_of_known_cancer_genes", 
+               "type_of_genome_seq_data_description","driver_gene_ID_strategy", 
+               "driver_gene_ID_strategy_description", "cancer_type_tested",
+               "method_account_for_cofactors", 
+               "method_account_for_cofactors_description",
+               "limited_to_subset_of_genes", "subset_description", 
+               "method_compute_pvals", "supervised_learning", 
+               "supervised_learning_description", 
+               "enrichment_of_known_cancer_genes", 
                "pathway_network_analysis", "literature_analysis", 
                "performance_on_rand_input_data_to_eval_FDR", 
                "performance_on_rand_subset_of_data_test_robustness", 
@@ -24,4 +28,3 @@ fieldsAll <- c("method_name", "year_published", "title", "journal", "authors",
                "eval_of_resulting_pval_distributions")
 
 responseDir <- file.path("responses")
-
