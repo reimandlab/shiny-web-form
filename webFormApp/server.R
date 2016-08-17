@@ -20,7 +20,11 @@ function(input, output, session) {
     formData <- reactive({
         data <- sapply(fieldsAll, 
                        function(x) {
-                            input[[x]]
+                           if (length(input[[x]]) > 1) {
+                               paste(input[[x]], collapse = ", ")
+                           } else {
+                               input[[x]]
+                           }
                        })
         data <- c(data, timestamp = epochTime())
         data

@@ -29,7 +29,7 @@ fluidPage(
                            "Functional impact (mutations affect important sites, e.g. conserved sites)",
                            "Combined", "Other (please describe)" = "Other")),
             conditionalPanel("input.driver_gene_ID_strategy == 'Other'", 
-                             textInput("driver_gene_ID_strategy_descrption", "Describe")),
+                             textInput("driver_gene_ID_strategy_description", "Describe")),
             radioButtons("cancer_type_tested", "What types of cancer tested", 
                          c("Single cancer type", "Multiple cancer types", "Pan-Cancer analysis")),
             radioButtons("method_account_for_cofactors", "Does the method account for cofactors", 

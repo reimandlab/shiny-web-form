@@ -19,6 +19,6 @@ loadData <- function() {
     files <- list.files(file.path(responseDir),
                         full.names = TRUE)
     data <- lapply(files, read.csv2, stringsAsFactors = FALSE)
-    data <- dplyr::bind_rows(data)
+    data <- do.call(rbind, data)
     data
 }
