@@ -71,11 +71,16 @@ function(input, output, session) {
     
     shinyjs::onclick("toggleTable", 
                      shinyjs::toggle(id = "tableOutput", anim = TRUE))
-
-    output$responsesTable <- DT::renderDataTable(
-        loadData(),
-        rownames = FALSE,
-        options = list(searching = FALSE, lengthChange = FALSE)
+    
+    responsesTable <- DT::renderDataTable(
+                                loadData(),
+                                rownames = FALSE,
+                                options = list(searching = FALSE, lengthChange = FALSE)
+                             )
+    output$responsesTable <- responsesTable
+    observeEvent(input$submit, { 
+                 output$responsesTable <- responsesTable
+                             }
     )
 
     output$downloadBtn <- downloadHandler(

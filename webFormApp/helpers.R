@@ -9,6 +9,8 @@ humanTime <- function() {
 }
 
 saveData <- function(data) {
+    if (!dir.exists(responseDir)) dir.create(responseDir)
+
     fileName <- sprintf("%s_%s.csv",
                         humanTime(),
                         digest::digest(data))
@@ -20,5 +22,9 @@ loadData <- function() {
                         full.names = TRUE)
     data <- lapply(files, read.csv2, stringsAsFactors = FALSE)
     data <- do.call(rbind, data)
+    if (is.data.frame(data)) {
+        colnames(data)[1] <- "ID"
+        data$ID <- seq.int(nrow(data))
+    }
     data
 }
