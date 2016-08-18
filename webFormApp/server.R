@@ -50,7 +50,7 @@ function(input, output, session) {
                 shinyjs::enable("submit")
                 shinyjs::hide("progress_msg")
             })
-    })
+    }, priority = 1)
 
     observeEvent(input$submit_another, {
                  shinyjs::show("form")
@@ -72,15 +72,12 @@ function(input, output, session) {
     shinyjs::onclick("toggleTable", 
                      shinyjs::toggle(id = "tableOutput", anim = TRUE))
     
-    responsesTable <- DT::renderDataTable(
-                                loadData(),
-                                rownames = FALSE,
-                                options = list(searching = FALSE, lengthChange = FALSE)
-                             )
-    output$responsesTable <- responsesTable
-    observeEvent(input$submit, { 
-                 output$responsesTable <- responsesTable
-                             }
+    output$responsesTable <- DT::renderDataTable({
+        input$submit
+        loadData()
+    },  selection = "single",
+        rownames = FALSE,
+        options = list(lengthChange = FALSE)
     )
 
     output$downloadBtn <- downloadHandler(

@@ -25,6 +25,7 @@ fieldsAll <- c("method_name", "year_published", "title", "journal", "authors",
                "performance_on_rand_input_data_to_eval_FDR", 
                "performance_on_rand_subset_of_data_test_robustness", 
                "performance_rel_to_other_methods", "eval_of_method_params", 
-               "eval_of_resulting_pval_distributions")
+               "eval_of_resulting_pval_distributions", "software_available",
+               "source_code_available", "datasets_available")
 
 responseDir <- file.path("responses")
