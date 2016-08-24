@@ -62,21 +62,52 @@ function(input, output, session) {
     })
 
     observeEvent(input$responsesTable_rows_selected, {
-            row_num <- input$responsesTable_rows_selected
-            if (length(row_num) > 0) {
-                data <- loadData()[row_num, ]
-                updateInputs(data, session)
-            }
-    })
-
-    observeEvent(input$delete, {
         row_num <- input$responsesTable_rows_selected
-        if (!is.null(row_num)) {
-            deleteData(row_num)
-            shinyjs::reset("id")
-            shinyjs::reset("form")
+        if (length(row_num) > 0) {
+            data <- loadData()[row_num, ]
+            updateInputs(data, session)
         }
     })
+
+    observeEvent(input$update, {
+        row_num <- input$responsesTable_rows_selected
+        
+        if (row_num > 0 && !is.null(row_num)) {
+            shinyjs::disable("update")
+            tryCatch({
+                deleteData(row_num)
+                saveData(formData())
+                shinyjs::reset("form")
+            },
+            error = function(err) {
+                shinyjs::html("error_msg", err$message)
+                shinyjs::show(id = "error", anim = TRUE, animType = "fade")
+            },
+            finally = {
+                shinyjs::enable("update")
+            })       
+        }
+    }, priority = 1)
+    
+    observeEvent(input$delete, {
+        row_num <- input$responsesTable_rows_selected
+        
+        if (row_num > 0 && !is.null(row_num)) {
+            shinyjs::disable("delete")
+            tryCatch({
+                deleteData(row_num)
+                shinyjs::reset("id")
+                shinyjs::reset("form")
+            },
+            error = function(err) {
+                shinyjs::html("error_msg", err$message)
+                shinyjs::show(id = "error", anim = TRUE, animType = "fade")
+            },
+            finally = {
+                shinyjs::enable("delete")
+            })
+        }   
+    }, priority = 1)
 
     output$tablePanelContainer <- renderUI({
         div(id = "tablePanel",
@@ -99,6 +130,7 @@ function(input, output, session) {
     
     output$responsesTable <- DT::renderDataTable({
         input$submit
+        input$update
         input$delete
         loadData()
     },  selection = "single",
