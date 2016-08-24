@@ -89,7 +89,6 @@ function(input, output, session) {
                 hr(),
                 shinyjs::disabled(textInput("id", "ID Selected", width = "20%")),
                 actionButton("new", "New"),
-                actionButton("update", "Update"),
                 actionButton("delete", "Delete")
             )
         )
