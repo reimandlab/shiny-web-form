@@ -29,7 +29,11 @@ function(input, output, session) {
         data <- c(data, timestamp = epochTime())
         data
     })
-
+    
+    observeEvent(input$new, {
+                 shinyjs::reset("id")
+                 shinyjs::reset("form")
+    })
     # action to take when submit button is pressed
     observeEvent(input$submit, {
             shinyjs::disable("submit")
@@ -57,6 +61,23 @@ function(input, output, session) {
                  shinyjs::hide("submit_msg")
     })
 
+    observeEvent(input$responsesTable_rows_selected, {
+            row_num <- input$responsesTable_rows_selected
+            if (length(row_num) > 0) {
+                data <- loadData()[row_num, ]
+                updateInputs(data, session)
+            }
+    })
+
+    observeEvent(input$delete, {
+        row_num <- input$responsesTable_rows_selected
+        if (!is.null(row_num)) {
+            deleteData(row_num)
+            shinyjs::reset("id")
+            shinyjs::reset("form")
+        }
+    })
+
     output$tablePanelContainer <- renderUI({
         div(id = "tablePanel",
             a(id = "toggleTable",
@@ -64,7 +85,12 @@ function(input, output, session) {
               class = "left-space"),
             div(id = "tableOutput",
                 DT::dataTableOutput("responsesTable"),
-                downloadButton("downloadBtn", "Download entries")
+                downloadButton("downloadBtn", "Download entries"),
+                hr(),
+                shinyjs::disabled(textInput("id", "ID Selected", width = "20%")),
+                actionButton("new", "New"),
+                actionButton("update", "Update"),
+                actionButton("delete", "Delete")
             )
         )
     })
@@ -74,6 +100,7 @@ function(input, output, session) {
     
     output$responsesTable <- DT::renderDataTable({
         input$submit
+        input$delete
         loadData()
     },  selection = "single",
         rownames = FALSE,

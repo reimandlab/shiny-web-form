@@ -29,3 +29,5 @@ fieldsAll <- c("method_name", "year_published", "title", "journal", "authors",
                "source_code_available", "datasets_available")
 
 responseDir <- file.path("responses")
+
+cls <- c(pubmedID = "numeric")
