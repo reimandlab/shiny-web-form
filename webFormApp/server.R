@@ -29,11 +29,7 @@ function(input, output, session) {
         data <- c(data, timestamp = epochTime())
         data
     })
-    
-    observeEvent(input$new, {
-                 shinyjs::reset("id")
-                 shinyjs::reset("form")
-    })
+
     # action to take when submit button is pressed
     observeEvent(input$submit, {
             shinyjs::disable("submit")
@@ -55,6 +51,11 @@ function(input, output, session) {
                 shinyjs::hide("progress_msg")
             })
     }, priority = 1)
+
+    observeEvent(input$new, {
+                 shinyjs::reset("id")
+                 shinyjs::reset("form")
+    })
 
     observeEvent(input$submit_another, {
                  shinyjs::show("form")
@@ -120,6 +121,7 @@ function(input, output, session) {
                 hr(),
                 shinyjs::disabled(textInput("id", "ID Selected", width = "20%")),
                 actionButton("new", "New"),
+                actionButton("update", "Update"),
                 actionButton("delete", "Delete")
             )
         )
