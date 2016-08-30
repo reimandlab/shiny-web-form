@@ -1,5 +1,5 @@
 fieldsMandatory <- c("method_name", "year_published", "title", "journal",
-                     "authors", "pubmedID", "scope")
+                     "authors", "pubmedID", "type", "scope")
 
 labelMandatory <- function(label) {
     tagList(
@@ -12,7 +12,7 @@ appCSS <- ".mandatory_star { color: red; }
            #error { color : red; }"
 
 fieldsAll <- c("method_name", "year_published", "title", "journal", "authors",
-               "pubmedID", "scope", "type_of_genome_seq_data", 
+               "pubmedID", "type", "scope", "type_of_genome_seq_data", 
                "type_of_genome_seq_data_description","driver_gene_ID_strategy", 
                "driver_gene_ID_strategy_description", "cancer_type_tested",
                "method_account_for_cofactors", 

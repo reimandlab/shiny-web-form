@@ -16,6 +16,8 @@ fluidPage(
             textInput("journal", labelMandatory("Journal")),
             textInput("authors", labelMandatory("Authors")),
             textInput("pubmedID", labelMandatory("PubMed ID")),
+            radioButtons("type", "Is it a tool or a pipeline?",
+                         c("None Selected" = "NULL", "Tool", "Pipeline", "Other")),
             radioButtons("scope", "Does the method/publication fit our scope",
                          c("None Selected" = "NULL", "Yes", "Maybe", "No")),
             hr(),

@@ -55,6 +55,7 @@ updateInputs <- function(data, session) {
     updateTextInput(session, "journal", value = data[, "journal"])
     updateTextInput(session, "authors", value = data[, "authors"])
     updateTextInput(session, "pubmedID", value = data[, "pubmedID"])
+    updateRadioBtns("type", data, session)
     updateRadioBtns("scope", data, session)
     updateCheckbox("type_of_genome_seq_data", data, session)
     updateTextInput(session, "type_of_genome_seq_data_description", 
